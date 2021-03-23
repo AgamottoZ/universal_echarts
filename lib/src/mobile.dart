@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'utils.dart';
 
+/// Provide function [drawChart] that takes in [option] to
+/// draw it on the Device's interface
 class UniversalEcharts {
   UniversalEcharts._();
 
+  /// A stub that draw an Echart using flutter_echarts wrapped
+  /// within an [OptionalSizedChild] to nicely draw the chart
+  /// with or without user inputting the [width] and [height].
   static Widget drawChart(String option) {
     return EchartsDevice(option: option);
   }

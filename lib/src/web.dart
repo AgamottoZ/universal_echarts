@@ -4,9 +4,15 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'utils.dart';
 
+/// Provide function [drawChart] that takes in [option] to
+/// draw it on the Web's interface
 class UniversalEcharts {
   UniversalEcharts._();
 
+  /// A stub that draw an Echart using inner frame within a custom HTML
+  /// and continuously updated echart scripts, wrapped within
+  /// an [OptionalSizedChild] to nicely draw the chart
+  /// with or without user inputting the [width] and [height].
   static Widget drawChart(String option) {
     return EchartsWeb(option: option);
   }
