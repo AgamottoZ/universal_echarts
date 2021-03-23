@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markdown/markdown.dart';
 import 'package:html2md/html2md.dart' as html2md;
-import 'package:universal_echarts/plugins/echarts/echarts_script.dart';
+import 'echarts_script.dart';
 
 class OptionalSizedChild extends StatelessWidget {
   final double? width, height;
