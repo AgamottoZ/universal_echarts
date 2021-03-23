@@ -1,16 +1,18 @@
 # universal_echarts
 
-A new Flutter project.
+Display Echart on both Web and Mobile platforms.
+
+## For iOS
+Put this in your Info.plist
+```
+<key>io.flutter.embedded_views_preview</key>
+<true/>
+```
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Simply use it as:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```dart
+UniversalEcharts.drawChart(option)
+```
