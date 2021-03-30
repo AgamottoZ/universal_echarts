@@ -88,13 +88,13 @@ class EchartsDevice extends StatelessWidget {
       builder: (w, h) {
         return Echarts(
           option: option,
-          extraScript: extraScript!,
+          extraScript: extraScript,
           onMessage: onMessage,
-          extensions: extensions!,
+          extensions: extensions,
           theme: theme,
-          captureAllGestures: captureAllGestures!,
-          captureHorizontalGestures: captureHorizontalGestures!,
-          captureVerticalGestures: captureVerticalGestures!,
+          captureAllGestures: captureAllGestures,
+          captureHorizontalGestures: captureHorizontalGestures,
+          captureVerticalGestures: captureVerticalGestures,
           onLoad: onLoad,
         );
       },
