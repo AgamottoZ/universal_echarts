@@ -20,9 +20,6 @@ class UniversalEcharts {
     Function(String message)? onMessage,
     List<String>? extensions,
     String? theme,
-    bool? captureAllGestures,
-    bool? captureHorizontalGestures,
-    bool? captureVerticalGestures,
     double? width,
     height,
     void Function()? onLoad,
@@ -33,9 +30,6 @@ class UniversalEcharts {
       onMessage: onMessage,
       extensions: extensions,
       theme: theme,
-      captureAllGestures: captureAllGestures,
-      captureHorizontalGestures: captureHorizontalGestures,
-      captureVerticalGestures: captureVerticalGestures,
       width: width,
       height: height,
       onLoad: onLoad,
@@ -43,6 +37,10 @@ class UniversalEcharts {
   }
 }
 
+/// The [EchartsWeb] class passing the user options to the HtmlView.
+/// The chart is displayed using [IFrameElement] with the use of an
+/// [OptionalSizedChild] in case the [width] and [height] is not set
+/// by the user.
 class EchartsWeb extends StatefulWidget {
   final String option;
 
@@ -53,12 +51,6 @@ class EchartsWeb extends StatefulWidget {
   final List<String>? extensions;
 
   final String? theme;
-
-  final bool? captureAllGestures;
-
-  final bool? captureHorizontalGestures;
-
-  final bool? captureVerticalGestures;
 
   final double? width, height;
 
@@ -71,9 +63,6 @@ class EchartsWeb extends StatefulWidget {
     this.onMessage,
     this.extensions = const [],
     this.theme,
-    this.captureAllGestures = false,
-    this.captureHorizontalGestures = false,
-    this.captureVerticalGestures = false,
     this.onLoad,
     this.width,
     this.height,
@@ -84,6 +73,8 @@ class EchartsWeb extends StatefulWidget {
 }
 
 class _EchartsWebState extends State<EchartsWeb> {
+  var _jsScript = '';
+
   @override
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
@@ -96,6 +87,17 @@ class _EchartsWebState extends State<EchartsWeb> {
         });
       }
     });
+    final extensionsStr = ((widget.extensions?.length ?? 0) > 0)
+        ? widget.extensions
+            ?.reduce((value, element) => (value) + '\n' + (element))
+        : '';
+    final themeStr = widget.theme != null ? '\'${widget.theme}\'' : 'null';
+    _jsScript = '''
+      $extensionsStr
+      var chart = echarts.init(document.getElementById('chart'), ${themeStr});
+      ${this.widget.extraScript}
+      chart.setOption(${widget.option}, true);
+    ''';
     super.initState();
   }
 
@@ -131,6 +133,7 @@ class _EchartsWebState extends State<EchartsWeb> {
 
   static final _iframeElementMap = Map<Key, html.IFrameElement>();
 
+  /// Setup the [IFrameElement] within the html view
   void _setup(double? width, double? height) {
     final key = widget.key ?? ValueKey('');
 
@@ -144,7 +147,7 @@ class _EchartsWebState extends State<EchartsWeb> {
         ..height = height?.toInt().toString()
         ..width = width?.toInt().toString();
       String _src = "data:text/html;charset=utf-8," +
-          Uri.encodeComponent(wrapHtml(widget.option));
+          Uri.encodeComponent(wrapHtml(_jsScript));
       element..src = _src;
       return element;
     });

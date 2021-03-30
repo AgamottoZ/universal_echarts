@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:markdown/markdown.dart';
 import 'package:html2md/html2md.dart' as html2md;
+import 'package:markdown/markdown.dart';
+
 import 'echarts_script.dart';
 
+/// A class that set the size of the widget return from [builder]
+/// in case the [width] and [height] is null.
 class OptionalSizedChild extends StatelessWidget {
   final double? width, height;
   final Widget Function(double?, double?) builder;
@@ -36,7 +39,7 @@ class OptionalSizedChild extends StatelessWidget {
   }
 }
 
-String wrapHtml(String option) {
+String wrapHtml(String jsScript) {
   return """
 <!DOCTYPE html>
 <html lang="en">
@@ -50,14 +53,7 @@ String wrapHtml(String option) {
 <body>
     <div id="main" style="width:600px; height:400px;"></div>
 <script type="text/javascript">
-        // based on prepared DOM, initialize echarts instance
-        var myChart = echarts.init(document.getElementById('main'));
-
-        // specify chart configuration item and data
-        var option = $option;
-
-        // use configuration item and data specified to show chart
-        myChart.setOption(option);
+        $jsScript
     </script>
 </body>
 </html>

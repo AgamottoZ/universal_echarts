@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
+
 import 'utils.dart';
 
 /// Provide function [drawChart] that takes in [option] to
@@ -10,27 +11,54 @@ class UniversalEcharts {
   /// A stub that draw an Echart using flutter_echarts wrapped
   /// within an [OptionalSizedChild] to nicely draw the chart
   /// with or without user inputting the [width] and [height].
-  static Widget drawChart(String option) {
-    return EchartsDevice(option: option);
+  static Widget drawChart(
+    String option, {
+    String? extraScript,
+    Function(String message)? onMessage,
+    List<String>? extensions,
+    String? theme,
+    bool? captureAllGestures,
+    bool? captureHorizontalGestures,
+    bool? captureVerticalGestures,
+    double? width,
+    height,
+    void Function()? onLoad,
+  }) {
+    return EchartsDevice(
+      option: option,
+      extraScript: extraScript,
+      onMessage: onMessage,
+      extensions: extensions,
+      theme: theme,
+      captureAllGestures: captureAllGestures,
+      captureHorizontalGestures: captureHorizontalGestures,
+      captureVerticalGestures: captureVerticalGestures,
+      width: width,
+      height: height,
+      onLoad: onLoad,
+    );
   }
 }
 
+/// A class using [Echarts] from [flutter_echarts] package, wrapped
+/// inside an [OptionalSizedChild] widget to display the chart when
+/// [width] and [height] are not provided by the user.
 class EchartsDevice extends StatelessWidget {
   final String option;
 
-  final String extraScript;
+  final String? extraScript;
 
   final void Function(String message)? onMessage;
 
-  final List<String> extensions;
+  final List<String>? extensions;
 
   final String? theme;
 
-  final bool captureAllGestures;
+  final bool? captureAllGestures;
 
-  final bool captureHorizontalGestures;
+  final bool? captureHorizontalGestures;
 
-  final bool captureVerticalGestures;
+  final bool? captureVerticalGestures;
 
   final void Function()? onLoad;
 
@@ -59,13 +87,13 @@ class EchartsDevice extends StatelessWidget {
       builder: (w, h) {
         return Echarts(
           option: option,
-          extraScript: extraScript,
+          extraScript: extraScript!,
           onMessage: onMessage,
-          extensions: extensions,
+          extensions: extensions!,
           theme: theme,
-          captureAllGestures: captureAllGestures,
-          captureHorizontalGestures: captureHorizontalGestures,
-          captureVerticalGestures: captureVerticalGestures,
+          captureAllGestures: captureAllGestures!,
+          captureHorizontalGestures: captureHorizontalGestures!,
+          captureVerticalGestures: captureVerticalGestures!,
           onLoad: onLoad,
         );
       },
