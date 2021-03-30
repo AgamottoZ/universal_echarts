@@ -1,5 +1,5 @@
 name: universal_echarts
-description: A new Flutter project.
+description: A null-safe package that display beautiful charts on both Web and Mobile through Echarts SDK.
 version: 1.0.0+3
 homepage: https://github.com/AgamottoZ/universal_echarts
 repository: https://github.com/AgamottoZ/universal_echarts
