@@ -2,6 +2,7 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+
 import 'utils.dart';
 
 /// Provide function [drawChart] that takes in [option] to
@@ -13,27 +14,51 @@ class UniversalEcharts {
   /// and continuously updated echart scripts, wrapped within
   /// an [OptionalSizedChild] to nicely draw the chart
   /// with or without user inputting the [width] and [height].
-  static Widget drawChart(String option) {
-    return EchartsWeb(option: option);
+  static Widget drawChart(
+    String option, {
+    String? extraScript,
+    Function(String message)? onMessage,
+    List<String>? extensions,
+    String? theme,
+    bool? captureAllGestures,
+    bool? captureHorizontalGestures,
+    bool? captureVerticalGestures,
+    double? width,
+    height,
+    void Function()? onLoad,
+  }) {
+    return EchartsWeb(
+      option: option,
+      extraScript: extraScript,
+      onMessage: onMessage,
+      extensions: extensions,
+      theme: theme,
+      captureAllGestures: captureAllGestures,
+      captureHorizontalGestures: captureHorizontalGestures,
+      captureVerticalGestures: captureVerticalGestures,
+      width: width,
+      height: height,
+      onLoad: onLoad,
+    );
   }
 }
 
 class EchartsWeb extends StatefulWidget {
   final String option;
 
-  final String extraScript;
+  final String? extraScript;
 
   final void Function(String message)? onMessage;
 
-  final List<String> extensions;
+  final List<String>? extensions;
 
   final String? theme;
 
-  final bool captureAllGestures;
+  final bool? captureAllGestures;
 
-  final bool captureHorizontalGestures;
+  final bool? captureHorizontalGestures;
 
-  final bool captureVerticalGestures;
+  final bool? captureVerticalGestures;
 
   final double? width, height;
 
@@ -125,4 +150,3 @@ class _EchartsWebState extends State<EchartsWeb> {
     });
   }
 }
-
