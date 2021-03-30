@@ -94,7 +94,7 @@ class _EchartsWebState extends State<EchartsWeb> {
     final themeStr = widget.theme != null ? '\'${widget.theme}\'' : 'null';
     _jsScript = '''
       $extensionsStr
-      var chart = echarts.init(document.getElementById('chart'), ${themeStr});
+      var chart = echarts.init(document.getElementById('main'), ${themeStr});
       ${this.widget.extraScript}
       chart.setOption(${widget.option}, true);
     ''';
