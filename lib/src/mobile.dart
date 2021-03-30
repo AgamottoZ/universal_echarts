@@ -26,13 +26,13 @@ class UniversalEcharts {
   }) {
     return EchartsDevice(
       option: option,
-      extraScript: extraScript,
+      extraScript: extraScript ?? '',
       onMessage: onMessage,
-      extensions: extensions,
+      extensions: extensions ?? const [],
       theme: theme,
-      captureAllGestures: captureAllGestures,
-      captureHorizontalGestures: captureHorizontalGestures,
-      captureVerticalGestures: captureVerticalGestures,
+      captureAllGestures: captureAllGestures ?? false,
+      captureHorizontalGestures: captureHorizontalGestures ?? false,
+      captureVerticalGestures: captureVerticalGestures ?? false,
       width: width,
       height: height,
       onLoad: onLoad,
@@ -46,19 +46,19 @@ class UniversalEcharts {
 class EchartsDevice extends StatelessWidget {
   final String option;
 
-  final String? extraScript;
+  final String extraScript;
 
   final void Function(String message)? onMessage;
 
-  final List<String>? extensions;
+  final List<String> extensions;
 
   final String? theme;
 
-  final bool? captureAllGestures;
+  final bool captureAllGestures;
 
-  final bool? captureHorizontalGestures;
+  final bool captureHorizontalGestures;
 
-  final bool? captureVerticalGestures;
+  final bool captureVerticalGestures;
 
   final void Function()? onLoad;
 
@@ -81,6 +81,7 @@ class EchartsDevice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(extraScript);
     return OptionalSizedChild(
       width: width,
       height: height,
